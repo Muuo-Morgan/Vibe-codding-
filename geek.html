@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LearnHub — Geek Page</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="binary-bg" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="brand">LearnHub</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="geek.html">Geek Page</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 style="color:var(--navy)">Geek Corner 🤓</h1>
+    <p style="color:var(--muted)">A collection of nerdy and funny quotes to brighten the debugging hours.</p>
+
+    <section style="margin-top:18px;" class="geek-grid">
+      <div class="quote">"There are only two hard things in Computer Science: cache invalidation, naming things, and off-by-one errors."</div>
+      <div class="quote">"I don't always test my code, but when I do, I do it in production." — probably a dev</div>
+      <div class="quote">"Programmer: A machine that turns coffee into code."</div>
+      <div class="quote">"Why do programmers prefer dark mode? Because light attracts bugs."</div>
+      <div class="quote">"Real programmers count from 0." — The Array Indexing Club</div>
+    </section>
+
+    <section style="margin-top:22px;">
+      <h3 style="color:var(--navy)">Animated bits</h3>
+      <p style="color:var(--muted)">A few floating icons and binary motifs to keep things playful.</p>
+
+      <div style="height:180px;position:relative;">
+        <div style="position:absolute;left:10%;top:20%">
+          <div style="width:70px;height:70px;border-radius:12px;background:linear-gradient(90deg,#fff,#f0f7ff);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(31,123,214,0.06);animation:float 5s ease-in-out infinite;">
+            <span style="font-weight:800;color:var(--navy)">1010</span>
+          </div>
+        </div>
+
+        <div style="position:absolute;right:15%;top:30%">
+          <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,#fff,#fff8f1);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(255,200,80,0.06);animation:float 6s ease-in-out infinite;">
+            <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#3776AB" d="M12 2C7.6 2 4 3.3 4 5v3h8V2zM4 9v6c0 1.7 3.6 3 8 3s8-1.3 8-3V9c-1.2.9-4 1.5-8 1.5S5.2 9.9 4 9z"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><p>© 2025 LearnHub — Keep it geeky</p></footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot">
+    <div class="chat-window" style="display:none; flex-direction:column;">
+      <div class="chat-header">LearnBot • Assistant</div>
+      <div class="chat-body"></div>
+      <div class="chat-input">
+        <input type="text" placeholder="Ask me something..."/>
+        <button>Send</button>
+      </div>
+    </div>
+    <button class="chat-toggle" title="Open Assistant">💬</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

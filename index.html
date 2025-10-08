@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LearnHub — Home</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="binary-bg" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="brand">LearnHub</div>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="geek.html">Geek Page</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-left">
+        <h1 id="hero-title">Skill up fast. Build stuff that matters.</h1>
+        <p>Short, practical courses for developers, analysts, and curious minds. Interactive lessons, progress tracking, and a playful vibe.</p>
+        <div class="cta-row">
+          <a class="btn" href="courses.html">Get Started</a>
+          <a class="btn secondary" href="geek.html">See the Geek Page</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <!-- floating icons -->
+        <div class="float-icon python" title="Python">
+          <!-- small python-like SVG -->
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M6 3c-1 0-3 1-3 3v3h6V3z" fill="#FFE873"/>
+            <path d="M18 21c1 0 3-1 3-3v-3h-6v6z" fill="#3776AB"/>
+          </svg>
+        </div>
+
+        <div class="float-icon code small" title="Code">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M8.7 16.3L3.4 12l5.3-4.3L7 6 0 12l7 6 1.7-1.7zM15.3 7.7L20.6 12l-5.3 4.3L17 18l7-6-7-6-1.7 1.7z"/></svg>
+        </div>
+
+        <div class="float-icon laptop" title="Laptop">
+          <svg width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M3 5h18v11H3z"/><path fill="currentColor" d="M0 18h24v2H0z"/></svg>
+        </div>
+
+        <div class="float-icon database small" title="Data">
+          <svg width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3C7.6 3 4 4.3 4 6v2c0 1.7 3.6 3 8 3s8-1.3 8-3V6c0-1.7-3.6-3-8-3zM4 10v4c0 1.7 3.6 3 8 3s8-1.3 8-3v-4c-1.2.9-4 1.5-8 1.5S5.2 10.9 4 10z"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:28px;">
+      <h2 style="color:var(--navy)">Why LearnHub?</h2>
+      <p style="color:var(--muted); max-width:800px;">We combine short hands-on lessons with a playful UI that keeps learners engaged. Built as an example prototype — but useful on its own.</p>
+    </section>
+
+    <section style="margin-top:22px;">
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <div class="card" style="flex:1; min-width:220px">
+          <h3>Interactive Progress</h3>
+          <p>Mark lessons done and track percent complete for each course. Progress is saved locally in your browser.</p>
+        </div>
+        <div class="card" style="flex:1; min-width:220px">
+          <h3>Smart Assistant</h3>
+          <p>A helpful chatbot is available to answer basic questions and jokes — designed to plug into a real AI later.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 LearnHub — Built with ❤️ for curious minds</p>
+  </footer>
+
+  <!-- Chatbot markup (shared) -->
+  <div class="chatbot" aria-hidden="false">
+    <div class="chat-window" style="display:none; flex-direction:column;">
+      <div class="chat-header">LearnBot • Assistant</div>
+      <div class="chat-body"></div>
+      <div class="chat-input">
+        <input type="text" placeholder="Ask me something..."/>
+        <button>Send</button>
+      </div>
+    </div>
+    <button class="chat-toggle" title="Open Assistant">💬</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

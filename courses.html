@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LearnHub — Courses</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">LearnHub</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="geek.html">Geek Page</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 style="color:var(--navy)">Courses</h1>
+    <p style="color:var(--muted)">Explore our curated short courses. Click a course to open details and mark lessons completed.</p>
+
+    <section style="margin-top:18px;" class="grid" id="coursesGrid">
+      <!-- cards injected by JS -->
+    </section>
+  </main>
+
+  <footer class="footer"><p>© 2025 LearnHub</p></footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot">
+    <div class="chat-window" style="display:none; flex-direction:column;">
+      <div class="chat-header">LearnBot • Assistant</div>
+      <div class="chat-body"></div>
+      <div class="chat-input">
+        <input type="text" placeholder="Ask me something..."/>
+        <button>Send</button>
+      </div>
+    </div>
+    <button class="chat-toggle" title="Open Assistant">💬</button>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // render courses on this page
+    const grid = document.getElementById('coursesGrid');
+    function render(){
+      grid.innerHTML = '';
+      COURSES.forEach(c=>{
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${c.title}</h3>
+          <p>${c.subtitle}</p>
+          <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;">
+            <div style="flex:1; margin-right:12px;">
+              <div class="progress-wrap">
+                <div class="progress-track"><div class="progress-fill" style="width:${Progress.percent(c.id, c.lessons.length)}%"></div></div>
+                <div style="font-size:0.86rem;color:var(--muted);margin-top:6px">${Progress.get(c.id).length || 0}/${c.lessons.length} lessons</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <a class="btn" href="course.html?id=${c.id}">View</a>
+              <button class="btn secondary" onclick="resetProgress(${c.id})">Reset</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function resetProgress(id){
+      if(!confirm('Reset progress for this course?')) return;
+      localStorage.removeItem(Progress.key(id));
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

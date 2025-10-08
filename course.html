@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>LearnHub — Course</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">LearnHub</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="geek.html">Geek Page</a>
+    </nav>
+  </header>
+
+  <main class="container" id="main">
+    <a class="btn" href="courses.html" style="margin-bottom:12px">← Back to Courses</a>
+
+    <section id="courseSection">
+      <!-- injected -->
+    </section>
+  </main>
+
+  <footer class="footer"><p>© 2025 LearnHub</p></footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot">
+    <div class="chat-window" style="display:none; flex-direction:column;">
+      <div class="chat-header">LearnBot • Assistant</div>
+      <div class="chat-body"></div>
+      <div class="chat-input">
+        <input type="text" placeholder="Ask me something..."/>
+        <button>Send</button>
+      </div>
+    </div>
+    <button class="chat-toggle" title="Open Assistant">💬</button>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // parse id param
+    const params = new URLSearchParams(location.search);
+    const id = parseInt(params.get('id') || '0', 10);
+    const target = COURSES.find(c=>c.id===id) || COURSES[0];
+
+    function renderCourse(c){
+     const html = `
+        <div class="card" style="padding:18px">
+          <div class="course-header">
+            <div class="avatar">${c.title.split(' ').slice(0,2).map(w=>w[0]).join('')}</div>
+            <div>
+              <h2 style="margin:0;color:var(--navy)">${c.title}</h2>
+              <p style="margin:6px 0;color:var(--muted)">${c.subtitle}</p>
+              <div style="display:flex;gap:10px;align-items:center;">
+                <div style="width:160px">
+                  <div class="progress-track"><div id="courseProgress" class="progress-fill" style="width:0%"></div></div>
+                </div>
+                <div id="progressText" style="color:var(--muted);font-weight:600"></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;">
+            <h3 style="margin-bottom:8px">Lessons</h3>
+            <div id="lessonsList"></div>
+          </div>
+
+          <div style="margin-top:14px;display:flex;gap:10px;">
+            <button class="btn" id="completeCourseBtn">Mark Course Completed</button>
+            <button class="btn secondary" id="resetAllBtn">Reset Progress</button>
+          </div>
+        </div>
+        ` ;
+      document.getElementById('courseSection').innerHTML = html;
+      updateUI(c);
+    }
+
+    function updateUI(c){
+      // render lessons
+      const list = document.getElementById('lessonsList');
+      list.innerHTML = '';
+      const completed = Progress.get(c.id);
+
+      c.lessons.forEach((lesson, idx)=>{
+        const el = document.createElement('div');
+        el.className = 'lesson';
+        const done = completed.includes(idx);
+        el.innerHTML = `
+          <div>
+            <div class="title">${lesson}</div>
+            <div style="font-size:0.9rem;color:var(--muted)">${done ? 'Completed' : 'Not done'}</div>
+          </div>
+          <div>
+            <button class="${done? 'done' : 'btn'}" onclick="toggle(${c.id},${idx}, this)">${done ? 'Done' : 'Mark'}</button>
+          </div>
+        `;
+        list.appendChild(el);
+      });
+
+      // progress bar
+      const pct = Progress.percent(c.id, c.lessons.length);
+      document.getElementById('courseProgress').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `${pct}%`;
+
+      // buttons
+      document.getElementById('completeCourseBtn').onclick = ()=>{
+        // mark all
+        const arr = Array.from(Array(c.lessons.length).keys());
+        localStorage.setItem(Progress.key(c.id), JSON.stringify(arr));
+        updateUI(c);
+      };
+      document.getElementById('resetAllBtn').onclick = ()=>{
+        if(confirm('Reset all progress for this course?')) {
+          localStorage.removeItem(Progress.key(c.id));
+          updateUI(c);
+        }
+      };
+    }
+
+    function toggle(courseId, lessonIdx, btnEl){
+      Progress.toggle(courseId, lessonIdx);
+      // small animation feedback
+      btnEl.classList.add('pulsing');
+      setTimeout(()=>btnEl.classList.remove('pulsing'), 420);
+      // re-render
+      updateUI(COURSES.find(x=>x.id===courseId));
+    }
+
+    renderCourse(target);
+  </script>
+  <style>
+    /* little pulsing effect for feedback */
+    .pulsing{animation:pulse .42s ease}
+    @keyframes pulse {0%{transform:scale(1)}50%{transform:scale(0.96)}100%{transform:scale(1)}}
+  </style>
+</body>
+</html>
